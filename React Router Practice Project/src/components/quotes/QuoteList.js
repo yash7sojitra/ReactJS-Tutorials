@@ -16,8 +16,10 @@ const sortQuotes = (quotes, ascending) => {
 
 const QuoteList = (props) => {
   const history = useHistory();
+  //useLocation hook gives us the current location (url)
   const location = useLocation();
 
+  //URLSearchParams(JS Specific) is an interface which provides us methods to work with the query string of url
   const queryParams = new URLSearchParams(location.search);
 
   const isSortingAscending = queryParams.get("sort") === "asc";
@@ -25,7 +27,9 @@ const QuoteList = (props) => {
   const sortedQuotes = sortQuotes(props.quotes, isSortingAscending);
 
   const changeSortingHandler = () => {
-    history.push("/quotes/?sort=" + (isSortingAscending ? "desc" : "asc"));
+    history.push(
+      `${location.pathname}?sort=${isSortingAscending ? "desc" : "asc"}`
+    );
   };
 
   return (
